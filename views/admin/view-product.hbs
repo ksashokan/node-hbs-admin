@@ -1,0 +1,44 @@
+<section>
+    <div class="container">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Sub Category Name</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if products}}
+                    {{#each products}}
+                    <tr>
+                        <td>{{math @index '+' 1}}</td>
+                        <td>{{this.category}}</td>
+                        <td>{{this.sub_category}}</td>
+                        <td>{{this.product_name}}</td>
+                        <td>{{this.price}}</td>
+                        <td>
+                            <a href="/admin/edit-product/{{this._id}}"><button type="button" class="btn btn-primary">Edit</button></a>
+                            <a href="/admin/delete-product/{{this._id}}" onclick="return confirm('Are you sure to want delete sub category {{this.category_name}}')"><button type="button" class="btn btn-danger">Delete</button></a>
+                        </td>
+                        
+                        
+                    </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                            <h3 style="text-align: center;">No Products Found</h3>
+                    </tr>
+                {{/if}}
+            </tbody>
+        </table>
+        <hr>
+        
+    </div>
+    
+</section>
+
+
