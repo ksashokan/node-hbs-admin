@@ -5,7 +5,7 @@
                 <h2 class="text-center">Add Product</h2>
                 <form action="/admin/add-product" method="post"> 
                     <label>Category</label>
-                    <select id="category" class="form-control" name="category_id">
+                    <select id="category" class="form-control" name="category_id" required>
                         <option disabled selected>Select Category</option>
                         {{#each category}}
                             <option value="{{this._id}}">{{this.category_name}}</option>
@@ -13,15 +13,15 @@
                     </select><br>
                     <div id="hideSub">
                         <label>Sub Category</label>
-                        <select id="subcategoryDropDown" class="form-control" name="sub_category_id">
+                        <select id="subcategoryDropDown" class="form-control" name="sub_category_id" required>
                             <option disabled selected>Select Sub Category</option>
                         
                         </select>
                     </div><br>
                     <label>Product Name</label>
-                    <input type="text" name="product_name" class="form-control">
+                    <input type="text" name="product_name" class="form-control" required>
                     <label>Price</label>
-                    <input type="text" name="price" class="form-control">
+                    <input type="text" name="price" class="form-control" required>
                     <button type="submit" class="btn btn-success mt-4">Save</button>
                 </form>
             </div>

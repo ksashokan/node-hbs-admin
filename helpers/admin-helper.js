@@ -234,12 +234,87 @@ module.exports = {
                         sub_category : '$subCategoryDetails.sub_category'
                     }
                 }
-
-                
             ]).toArray()
             resolve(productDetails)
         })
-    }
+    },
+
+    getProductById:(productId) => {
+        return new Promise(async(resolve, reject) => {
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([
+                {
+                    $match : {
+                        _id : objectId(productId)
+                    }
+                },
+                {
+                    $lookup : {
+                        from : collection.SUBCATEGORY_COLLECTION,
+                        localField : 'sub_category_id',
+                        foreignField : '_id',
+                        as : 'subCategoryDetails'
+                    }
+                },
+                {
+                    $unwind : '$subCategoryDetails'
+                },
+                {
+                    $lookup : {
+                        from : collection.CATEGORY_COLLECTION,
+                        localField : 'category_id',
+                        foreignField : '_id',
+                        as : 'categoryDetails'
+                    }
+                },
+                {
+                    $unwind : '$categoryDetails'
+                },
+                {   
+                    $project : {
+                        category_id : '$category_id',
+                        category_name : '$categoryDetails.category_name',
+                        sub_category_id : '$sub_category_id',
+                        sub_category_name : '$subCategoryDetails.sub_category',
+                        product_name : '$product_name',
+                        price : '$price'
+                    }
+                }
+            ]).toArray()
+            resolve(products[0])
+        })
+    },
+
+    getSubCategoryDetails:() => {
+        return new Promise(async(resolve, reject) => {
+            let subCategory = await db.get().collection(collection.SUBCATEGORY_COLLECTION).find().toArray()
+            resolve(subCategory)
+        })
+    },
+
+    updateProduct:(productId, data) => {
+        console.log(data);
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id : objectId(productId)}, {
+                $set : {
+                    category_id : objectId(data.category_id),
+                    sub_category_id : objectId(data.sub_category_id),
+                    product_name : data.product_name,
+                    price : data.price
+                }
+            }).then((response) => {
+                resolve(response)
+            })
+        })
+    },
+
+
+    deleteProduct:(productId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id : objectId(productId)}).then((response) => {
+                resolve(response)
+            })
+        })
+    },
 
     /**products ends here */
 }

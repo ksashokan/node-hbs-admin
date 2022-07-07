@@ -144,15 +144,11 @@ router.get('/add-product', async(req, res) => {
 
 router.get('/view-product', async(req, res) => {
     let productList = await adminHelper.getproducts()
-    console.log(productList);
     res.render('admin/view-product', {admin : true, products : productList})
 })
 
 router.post('/sub-category-details', (req, res) => {
-    console.log(req.body.categoryId);
-
     adminHelper.getSubCategoryBycategoryId(req.body.categoryId).then((data) => {
-        console.log(data);
         res.json({
             error : false,
             dataList : data
@@ -161,14 +157,44 @@ router.post('/sub-category-details', (req, res) => {
 })
 
 router.post('/add-product', (req, res) => {
-    console.log('%%%%%%%');
-    console.log(req.body);
     adminHelper.addProduct(req.body).then((response) => {
         if (response) {
             res.redirect('/admin/view-product')
         }
     })
 })
+
+
+router.get('/edit-product/:id', async(req, res) => {
+    let categoryList = await adminHelper.getCategory()
+    let subCategoryList = await adminHelper.getSubCategoryDetails()
+
+    let getProductById = await adminHelper.getProductById(req.params.id).then((response) => {
+        if (response) {
+            res.render('admin/edit-product', {productDetails : response, category : categoryList, subCategory : subCategoryList})
+        }
+    })
+})
+
+router.post('/update-product/:id', (req, res) => {
+    console.log(req.params.id);
+    adminHelper.updateProduct(req.params.id, req.body).then((data) => {
+        if(data) {
+            res.redirect('/admin/view-product')
+        }
+        
+    })
+})
+
+
+router.get('/delete-product/:id', (req, res) => {
+    adminHelper.deleteProduct(req.params.id).then((response) => {
+        if (response) {
+            res.redirect('/admin/view-product')
+        }
+    })
+})
+
 
 /**products ends here */
 

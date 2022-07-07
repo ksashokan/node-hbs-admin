@@ -1,0 +1,47 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Edit Product</h2>
+                <form action="/admin/update-product/{{productDetails._id}}" method="post"> 
+                    <label>Category</label>
+                    <select id="category" class="form-control" name="category_id" required>
+                        <option disabled selected>Select Category</option>
+                        {{#each category}}
+                            <option value="{{this._id}}" 
+                                {{#eq this._id ../productDetails.category_id}}
+                                    selected
+                                {{/eq}}
+                                >{{this.category_name}}</option>
+                        {{/each}}
+                        
+                            
+                        
+                    </select><br>
+                    <div id="hideSub">
+                        <label>Sub Category</label>
+                        <select id="subcategoryDropDown" class="form-control" name="sub_category_id" required>
+                            <option disabled selected>Select Sub Category</option>
+                            {{#each subCategory}}
+                            <option value="{{this._id}}" 
+                                {{#eq this._id ../productDetails.sub_category_id}}
+                                    selected
+                                {{/eq}}
+                                >{{this.sub_category}}</option>
+                             {{/each}}
+                        
+                        </select>
+                    </div><br>
+                    <label>Product Name</label>
+                    <input type="text" name="product_name" class="form-control" required value="{{productDetails.product_name}}">
+                    <label>Price</label>
+                    <input type="text" name="price" class="form-control" required value="{{productDetails.price}}">
+                    <button type="submit" class="btn btn-success mt-4">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

@@ -1,6 +1,6 @@
 // const { response } = require("../../app");
 
-$('#hideSub').hide();
+// $('#hideSub').hide();
 $("#category").on('change', function() {
     var categoryId = $(this).val();
 
@@ -12,7 +12,7 @@ $("#category").on('change', function() {
             categoryId : categoryId
         },
         success : (response) => {
-            $('#hideSub').show();
+            // $('#hideSub').show();
             console.log(response.dataList);
             $("#subcategoryDropDown").html('<option selected disabled value="">Select Sub Category</option>')
             $.each(response.dataList, (key, value) => {
@@ -21,3 +21,24 @@ $("#category").on('change', function() {
         }
     })
 })
+
+
+
+
+
+$(document).ready( function () {
+    $('#categoryTable').DataTable();
+});
+
+$(document).ready( function () {
+    $('#subCategoryTable').DataTable();
+});
+
+$(document).ready( function () {
+    $('#productTable').DataTable();
+});
+
+
+
+
+

@@ -5,14 +5,14 @@
                 <h2 class="text-center">Add Sub Category</h2>
                 <form action="/admin/add-sub-category" method="post"> 
                     <label>Category</label>
-                    <select class="form-control" name="category_id">
+                    <select class="form-control" name="category_id" required>
                         <option disabled selected>Select Category</option>
                         {{#each category}}
                             <option value="{{this._id}}">{{this.category_name }}</option>
                         {{/each}}
                     </select><br>
                     <label>Sub Category</label>
-                    <input type="text" name="sub_category" class="form-control">
+                    <input type="text" name="sub_category" class="form-control" required>
                     <button type="submit" class="btn btn-success mt-4">Save</button>
                 </form>
             </div>

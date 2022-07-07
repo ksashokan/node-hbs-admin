@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <table class="table mt-5">
+        <table class="table mt-5" id="productTable">
             <thead>
                 <tr>
                     <th>No</th>
@@ -22,7 +22,7 @@
                         <td>{{this.price}}</td>
                         <td>
                             <a href="/admin/edit-product/{{this._id}}"><button type="button" class="btn btn-primary">Edit</button></a>
-                            <a href="/admin/delete-product/{{this._id}}" onclick="return confirm('Are you sure to want delete sub category {{this.category_name}}')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="/admin/delete-product/{{this._id}}" onclick="return confirm('Are you sure to want delete product {{this.product_name}}')"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                         
                         
